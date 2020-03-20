@@ -1,0 +1,72 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>The HTML5 Herald</title>
+    <meta name="description" content="The HTML5 Herald">
+    <meta name="author" content="SitePoint">
+
+    <link rel="stylesheet" href="css/styles.css?v=1.0">
+    <script src="./punkty.js"></script>
+    <style>
+      .app {
+        margin-left: 100px;
+        margin-top: 100px;
+        display: flex;
+        flex-direction: column;
+        width: 500px;
+        height: 500px;
+      }
+
+      .app button {
+        width: 100px;
+        margin-bottom: 20px;
+      }
+    </style>
+</head>
+
+<body>
+    <div class="app">
+      <button onclick="drawPoints()">Wczytaj punkty</button>
+      <canvas id='canvas' width="500" height="500" style="border: 1px solid black;"></canvas>
+    </div>
+</body>
+
+<script>
+    const canvas = document.getElementById('canvas');
+    const pointsToDraw = [];
+    var ctx = canvas.getContext("2d");
+
+    window.drawPoints = function () {
+      punkty.forEach((item, i) => {
+        drawPixel(ctx, item.x, item.y);
+      });
+
+    }
+
+    function drawPixel (ctx, x, y) {
+      ctx.beginPath();
+      ctx.fillStyle = "#FF0000";
+      ctx.arc(x, y, 5, 0, Math.PI*2, true);
+      ctx.closePath();
+      ctx.fill();
+
+      pointsToDraw.push({
+        x: x,
+        y: y,
+      })
+    }
+
+    function canvasClick (e) {
+      const xInCanvas = e.offsetX;
+      const yInCanvas = e.offsetY;
+
+      drawPixel(ctx, xInCanvas, yInCanvas);
+    }
+
+
+    canvas.addEventListener("click", canvasClick, false);
+</script>
+
+</html>
