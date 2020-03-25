@@ -4,7 +4,7 @@
     <meta charset="utf-8">
 
     <title>The HTML5 Herald</title>
-    <meta name="description" content="The HTML5 Herald">
+    <meta name="description" content="Otoczka">
     <meta name="author" content="SitePoint">
     <script type="text/javascript" src="../biblioteka.js"></script>
     <style>
@@ -20,14 +20,14 @@
   <script>
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext("2d");
-    const punkt = new window.lib.Punkt(10, 200);
-    const punkt2 = new window.lib.Punkt(20, 100, 'green');
-    const punkt3 = new window.lib.Punkt(50, 120);
-    const odcinek = new window.lib.Odcinek(punkt, punkt2, 'black');
-    punkt.draw(ctx);
-    odcinek.draw(ctx);
-    punkt2.draw(ctx);
-    punkt3.draw(ctx);
+    const punkty = [[33, 31],[65, 24],[52, 46],[11, 30],[26, 49],
+      [21, 10],[48, 23],[56, 11],[19, 29],[40, 9]];
+    // mnoże x5 dla lepszej skali
+    const punktyObiekty = punkty.map(punkt => new window.lib.Punkt(punkt[0] * 5, punkt[1] * 5));
 
+    punktyObiekty.forEach(punkt => punkt.draw(ctx));
+    const odcinki = window.lib.policzOdcinkiOtoczki(punktyObiekty);
+
+    odcinki.forEach(odcinek => odcinek.draw(ctx));
   </script>
 </html>
