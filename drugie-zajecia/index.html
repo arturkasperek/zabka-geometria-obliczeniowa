@@ -23,11 +23,17 @@
     const punkt = new window.lib.Punkt(10, 200);
     const punkt2 = new window.lib.Punkt(20, 100, 'green');
     const punkt3 = new window.lib.Punkt(50, 120);
+    const punkt4 = new window.lib.Punkt(250, 250);
     const odcinek = new window.lib.Odcinek(punkt, punkt2, 'black');
+    const polprosta = new window.lib.Polprosta(punkt4, 90, 'red');
+    const prosta = new window.lib.Prosta(punkt2, 30, 'blue');
     punkt.draw(ctx);
     odcinek.draw(ctx);
     punkt2.draw(ctx);
     punkt3.draw(ctx);
+    punkt4.draw(ctx);
+    polprosta.draw(ctx);
+    prosta.draw(ctx);
 
   </script>
 </html>
