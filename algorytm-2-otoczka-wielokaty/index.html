@@ -1,0 +1,52 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>The HTML5 Herald</title>
+    <meta name="description" content="Otoczka">
+    <meta name="author" content="SitePoint">
+    <script type="text/javascript" src="../biblioteka.js"></script>
+    <style>
+
+    </style>
+</head>
+
+  <body>
+      <div class="app">
+        <canvas id='canvas' width="500" height="500" style="border: 1px solid black;"></canvas>
+      </div>
+  </body>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext("2d");
+    const punkty1 = [[65, 24],[52, 46],[11, 30],[26, 49],
+      [56, 11],[40, 9]];
+
+    const punktyObiekty1 = punkty1.map(punkt => new window.lib.Punkt(punkt[0] * 3, punkt[1] * 3));
+
+    punktyObiekty1.forEach(punkt => punkt.draw(ctx));
+    const odcinki1 = window.lib.policzOdcinkiOtoczki(punktyObiekty1);
+
+    odcinki1.forEach(odcinek => odcinek.draw(ctx));
+
+    const punkty2 = [[115, 94],[68, 112], [81, 140],[140, 79]];
+
+    const punktyObiekty2 = punkty2.map(punkt => new window.lib.Punkt(punkt[0] * 3, punkt[1] * 3));
+
+    punktyObiekty2.forEach(punkt => punkt.draw(ctx));
+    const odcinki2 = window.lib.policzOdcinkiOtoczki(punktyObiekty2);
+
+    odcinki2.forEach(odcinek => odcinek.draw(ctx));
+
+    punkty3 = punkty1.concat(punkty2);
+    const punktyObiekty3 = punkty3.map(punkt => new window.lib.Punkt(punkt[0] * 3, punkt[1] * 3));
+
+    punktyObiekty3.forEach(punkt => punkt.draw(ctx));
+    const odcinki3 = window.lib.policzOdcinkiOtoczki(punktyObiekty3);
+
+    odcinki3.forEach(odcinek => odcinek.draw(ctx));
+
+
+  </script>
+</html>
