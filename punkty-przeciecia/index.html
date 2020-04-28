@@ -1,0 +1,54 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>The HTML5 Herald</title>
+    <meta name="description" content="Otoczka">
+    <meta name="author" content="SitePoint">
+    <script type="text/javascript" src="../biblioteka.js"></script>
+    <style>
+
+    </style>
+</head>
+
+  <body>
+      <div class="app">
+        <canvas id='canvas' width="500" height="500" style="border: 1px solid black;"></canvas>
+      </div>
+  </body>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext("2d");
+    const odcinki = [
+      new Odcinek(new Punkt(20, 60), new Punkt(100, 80)),
+      new Odcinek(new Punkt(50, 80), new Punkt(150, 70)),
+      new Odcinek(new Punkt(110, 80), new Punkt(100, 20)),
+      new Odcinek(new Punkt(40, 100), new Punkt(100, 30)),
+    ];
+
+    odcinki.forEach(i => {
+      i.draw(ctx);
+    });
+
+    for ( let i = 0; i < odcinki.length; i++ ) {
+      for ( let j = 0; j < odcinki.length; j++ ) {
+        if ( i == j ) {
+          break;
+        }
+
+        const odcinekA = odcinki[i];
+        const odcinekB = odcinki[j];
+
+        const wynik = punktPrzecieciaOdcinkow(
+          odcinekA,
+          odcinekB
+        );
+
+        if ( wynik.koliduje ) {
+          wynik.punkt.draw(ctx);
+        }
+      }
+    }
+  </script>
+</html>
