@@ -100,109 +100,13 @@ class Prosta extends IDrawable {
 
 }
 
-function policzOdcinkiOtoczki(punkty) {
-  // sortowanie
-  const posortowane = punkty.sort((a, b) => a.x - b.x);
-  // funckcja liczy wyznacznik 3x3
-  const wyznacznik = (a, b, c) => (a[0] * b[1] * c[2]) - (a[0] * b[2] * c[1]) - (b[0]*a[1] * c[2]) + (b[0] * a[2] * c[1]) + (c[0] * a[1] * b[2]) - (c[0] * a[2] * b[1]);
-  // pomocniczna funckja
-  const wyznacznikDlaPunktow = (a, b, c) => wyznacznik(
-    [a.x, a.y, 1],
-    [b.x, b.y, 1],
-    [c.x, c.y, 1],
-  );
-  // funkcja do wynzacznia punktów otoczki
-  const getHalf = (first = true) => {
-    let punktyOtoczki1 = [
-      posortowane[0],
-      posortowane[1],
-      posortowane[2],
-    ];
 
-    // algorytm
-    for (let i = 3; i < posortowane.length; i++) {
-      let pointer;
-
-      punktyOtoczki1.push(posortowane[i]);
-      pointer = punktyOtoczki1.length - 1;
-
-      while (pointer >= 2) {
-        const endPoint = punktyOtoczki1[pointer];
-        const middlePoint = punktyOtoczki1[pointer - 1];
-        const startPoint = punktyOtoczki1[pointer - 2];
-        // tu liczymy wyznacznik
-        const wynikWyznacznika = wyznacznikDlaPunktow(startPoint, middlePoint, endPoint);
-
-        // w zależności od wartosci wyznacznika wurzycamy punkt
-        if ( first ? wynikWyznacznika > 0 : wynikWyznacznika < 0 ) {
-          punktyOtoczki1 = punktyOtoczki1.filter((i, index) => index !== (pointer - 1));
-        }
-
-        pointer--;
-      }
-    }
-
-    return punktyOtoczki1;
-  };
-
-  // generuje górną część otoczki
-  const punktyOtoczkiGora = getHalf();
-  // generuje dolną część otoczki
-  const punktyOtoczkiDol = getHalf(false);
-
-  // na dole pomocniczny kod do wygenerowania odcinków które będą tworzyć otoczkę
-  punktyOtoczkiGora.reverse();
-  const temp = [...punktyOtoczkiDol, ...punktyOtoczkiGora];
-  const odcinki = [];
-
-  for(let i = 0; i < temp.length - 1; i++) {
-    const a = temp[i];
-    const b = temp[i + 1];
-
-    odcinki.push(new Odcinek(a, b, 'blue'));
-  }
-
-  return odcinki;
-}
-
-function punktPrzecieciaOdcinkow(odcinekA, odcinekB)
-{
-  const p0_x = odcinekA.p1.x;
-  const p0_y = odcinekA.p1.y;
-  const p1_x = odcinekA.p2.x;
-  const p1_y = odcinekA.p2.y;
-
-  const p2_x = odcinekB.p1.x;
-  const p2_y = odcinekB.p1.y;
-  const p3_x = odcinekB.p2.x;
-  const p3_y = odcinekB.p2.y;
-
-  let s1_x, s1_y, s2_x, s2_y;
-  s1_x = p1_x - p0_x;     s1_y = p1_y - p0_y;
-  s2_x = p3_x - p2_x;     s2_y = p3_y - p2_y;
-
-  let s, t;
-  s = (-s1_y * (p0_x - p2_x) + s1_x * (p0_y - p2_y)) / (-s2_x * s1_y + s1_x * s2_y);
-  t = ( s2_x * (p0_y - p2_y) - s2_y * (p0_x - p2_x)) / (-s2_x * s1_y + s1_x * s2_y);
-
-  if (s >= 0 && s <= 1 && t >= 0 && t <= 1)
-  {
-    return {
-      koliduje: true,
-      punkt: new Punkt(p0_x + (t * s1_x), p0_y + (t * s1_y), 'green'),
-    };
-  }
-
-  return {
-    koliduje: false,
-  };
-}
 
 window.lib = {
   Punkt,
   Odcinek,
   Polprosta,
   Prosta,
-  policzOdcinkiOtoczki,
-  punktPrzecieciaOdcinkow,
+  //policzOdcinkiOtoczki,
+  //punktPrzecieciaOdcinkow,
 };

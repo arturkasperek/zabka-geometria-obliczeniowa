@@ -7,6 +7,7 @@
     <meta name="description" content="Otoczka">
     <meta name="author" content="SitePoint">
     <script type="text/javascript" src="../biblioteka.js"></script>
+    <script type="text/javascript" src="../algorytmy/otoczka.js"></script>
     <style>
 
     </style>
@@ -26,7 +27,7 @@
     const punktyObiekty = punkty.map(punkt => new window.lib.Punkt(punkt[0] * 5, punkt[1] * 5));
 
     punktyObiekty.forEach(punkt => punkt.draw(ctx));
-    const odcinki = window.lib.policzOdcinkiOtoczki(punktyObiekty);
+    const odcinki = policzOdcinkiOtoczki(punktyObiekty);
 
     odcinki.forEach(odcinek => odcinek.draw(ctx));
   </script>
