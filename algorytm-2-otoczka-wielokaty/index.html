@@ -7,6 +7,7 @@
     <meta name="description" content="Otoczka">
     <meta name="author" content="SitePoint">
     <script type="text/javascript" src="../biblioteka.js"></script>
+    <script type="text/javascript" src="../algorytmy/otoczka.js"></script>
     <style>
 
     </style>
@@ -26,7 +27,7 @@
     const punktyObiekty1 = punkty1.map(punkt => new window.lib.Punkt(punkt[0] * 3, punkt[1] * 3));
 
     punktyObiekty1.forEach(punkt => punkt.draw(ctx));
-    const odcinki1 = window.lib.policzOdcinkiOtoczki(punktyObiekty1);
+    const odcinki1 = policzOdcinkiOtoczki(punktyObiekty1);
 
     odcinki1.forEach(odcinek => odcinek.draw(ctx));
 
@@ -35,7 +36,7 @@
     const punktyObiekty2 = punkty2.map(punkt => new window.lib.Punkt(punkt[0] * 3, punkt[1] * 3));
 
     punktyObiekty2.forEach(punkt => punkt.draw(ctx));
-    const odcinki2 = window.lib.policzOdcinkiOtoczki(punktyObiekty2);
+    const odcinki2 = policzOdcinkiOtoczki(punktyObiekty2);
 
     odcinki2.forEach(odcinek => odcinek.draw(ctx));
 
@@ -43,7 +44,7 @@
     const punktyObiekty3 = punkty3.map(punkt => new window.lib.Punkt(punkt[0] * 3, punkt[1] * 3));
 
     punktyObiekty3.forEach(punkt => punkt.draw(ctx));
-    const odcinki3 = window.lib.policzOdcinkiOtoczki(punktyObiekty3);
+    const odcinki3 = policzOdcinkiOtoczki(punktyObiekty3);
 
     odcinki3.forEach(odcinek => odcinek.draw(ctx));
 
