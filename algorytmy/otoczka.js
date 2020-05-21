@@ -1,4 +1,4 @@
-function policzOdcinkiOtoczki(punkty) {
+function policzOdcinkiOtoczki(punkty, color="blue") {
   // sortowanie
   const posortowane = punkty.sort((a, b) => a.x - b.x);
   // funckcja liczy wyznacznik 3x3
@@ -57,7 +57,7 @@ function policzOdcinkiOtoczki(punkty) {
     const a = temp[i];
     const b = temp[i + 1];
 
-    odcinki.push(new Odcinek(a, b, 'blue'));
+    odcinki.push(new Odcinek(a, b, color));
   }
 
   return odcinki;
