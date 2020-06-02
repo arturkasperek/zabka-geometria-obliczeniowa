@@ -67,7 +67,7 @@ class Polprosta extends IDrawable {
   }
     draw(ctx) {
       ctx.beginPath();
-      let r =  2000; //długość proste
+      let r =  2000; //długość prostej, musi być większa niż wielkość canvasu
       ctx.strokeStyle = this.color;
       ctx.moveTo(this.p1.x, this.p1.y);
       ctx.lineTo(this.p1.x + r * Math.cos(Math.PI * this.kat / 180), this.p1.y + r * Math.sin(Math.PI * this.kat / 180));

@@ -1,5 +1,7 @@
 function czyPrzecina(odcinekA, odcinekB)
 {
+ //do sprawdzenia czy dany wielokąt jest prosty wykorzystaliśmy
+ //zmodyfikowany algorytm do wyznaczania punktów przecięcia
   const p0_x = odcinekA.p1.x;
   const p0_y = odcinekA.p1.y;
   const p1_x = odcinekA.p2.x;
@@ -9,7 +11,8 @@ function czyPrzecina(odcinekA, odcinekB)
   const p2_y = odcinekB.p1.y;
   const p3_x = odcinekB.p2.x;
   const p3_y = odcinekB.p2.y;
-
+  //pierwsza modyfikacja następuje tutaj
+  //bez modyfikacji algorytm traktował wierzchołki jak przecięcia
   let s1_x, s1_y, s2_x, s2_y;
   s1_x = p1_x - p0_x + 1;     s1_y = p1_y - p0_y + 1;
   s2_x = p3_x - p2_x + 1;     s2_y = p3_y - p2_y + 1;
@@ -30,7 +33,10 @@ function czyPrzecina(odcinekA, odcinekB)
     koliduje: false,
   };
 }
-
+// w tej funkcji wysyłamy zapytanie do funkcji powyższej w celu znalezienia
+//punktów przecięć, następnie w zależności od tego czy takie punkty zostały znalezione
+//zwracana jest odpowiednia wartość true lub false, odpowiadająca na pytanie
+// czy jest to wielokąt prosty, czy nie
 function prosty(odcinki){
     let flaga = true;
     for ( let i = 0; i < odcinki.length; i++ ) {
@@ -42,15 +48,6 @@ function prosty(odcinki){
         const odcinekA = odcinki[i];
         const odcinekB = odcinki[j];
 
-        //odcinekA.p1.x += 1;
-        //odcinekA.p1.y += 1;
-        //odcinekA.p2.x += 1;
-        //odcinekA.p2.y += 1;
-
-        //odcinekB.p1.x += 1;
-        //odcinekB.p1.y += 1;
-        //odcinekB.p2.x += 1;
-        //odcinekB.p2.y += 1;
         const wynik = czyPrzecina(
           odcinekA,
           odcinekB
