@@ -1,0 +1,50 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>The HTML5 Herald</title>
+    <meta name="description" content="Wielokąty proste">
+    <meta name="author" content="SitePoint">
+    <script type="text/javascript" src="../biblioteka.js"></script>
+    <script type="text/javascript" src="../algorytmy/punkty_zewnetrzne_wewnetrzne.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+<div class="app" style="display: flex">
+    <div>
+        <div id="wynik"></div>
+        <canvas id='canvas' width="500" height="500" style="border: 1px solid black;"></canvas>
+    </div>
+</div>
+</body>
+<script>
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext("2d");
+
+  // tworzymy wielokąt
+  const wielokat = new Wielokat([
+    new Punkt(100, 100),
+    new Punkt(400, 100),
+    new Punkt(300, 300),
+    new Punkt(320, 350),
+    new Punkt(150, 200),
+  ]);
+  const punkty = [
+    new Punkt(120, 150, '#c86401'),
+    new Punkt(180, 200, '#c86401'),
+    new Punkt(20, 120, '#c86401'),
+    new Punkt(300, 200, '#c86401'),
+    new Punkt(350, 40, '#c86401'),
+    new Punkt(420, 400, '#c86401'),
+  ];
+
+  punktyWewnetrzneZewnetrzne(wielokat, punkty);
+
+  wielokat.draw(ctx);
+  punkty.forEach(punkt => punkt.draw(ctx));
+</script>
+</html>
