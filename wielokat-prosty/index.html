@@ -17,6 +17,7 @@
 
   <body>
       <div class="app">
+        <div id="wynik"></div>
         <canvas id='canvas' width="500" height="500" style="border: 1px solid black;"></canvas>
       </div>
   </body>
@@ -41,7 +42,7 @@
       new Odcinek(new Punkt(100, 400), new Punkt(400, 400), "blue"),
     ];
     //odcinki.forEach(odcinek => odcinek.draw(ctx));
-    if(prosty(odcinki)==false){
+    if(!prosty(odcinki)){
         //let odcinki = policzOdcinkiOtoczki(punktyObiekty, "red");
         let odcinki = [
           new Odcinek(new Punkt(100, 100), new Punkt(400, 100), "red"),
@@ -52,11 +53,15 @@
         console.log('Nie prosty');
         //jeśli wielokąt nie jest prosty będzie narysowany na czerwono
         odcinki.forEach(odcinek => odcinek.draw(ctx));
+
+        document.getElementById('wynik').innerText = 'Nie prosty';
     }
     else{
         odcinki.forEach(odcinek => odcinek.draw(ctx));
         console.log('Prosty');
         // jeśli jest prosty to zostanie narysowany na niebiesko
+
+        document.getElementById('wynik').innerText = 'Prosty';
     }
 
   </script>

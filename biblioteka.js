@@ -54,6 +54,66 @@ class Odcinek extends IDrawable{
 }
 
 /*
+rysuje wielokąt, jako argument przyjmuje punkty wielokata
+ */
+class Wielokat extends IDrawable{
+  constructor(punkty, color = '#FF0000'){
+    super();
+    this.punkty = punkty;
+  }
+
+  /*
+    wywołuje  metody draw odcinka oraz punktu
+   */
+  draw(ctx) {
+    for(let i = 0; i < this.punkty.length; i++) {
+      const punkt = this.punkty[i];
+
+      punkt.draw(ctx);
+
+      // rysuje odcinek między dwoma punktami
+      if ( i > 0 ) {
+        const odcinek = new Odcinek(this.punkty[i], this.punkty[i -1], 'blue');
+
+        odcinek.draw(ctx);
+      }
+
+      // rysuje kończący odcinek
+      if (i == (this.punkty.length - 1)) {
+        const odcinek = new Odcinek(this.punkty[0], this.punkty[i], 'blue');
+
+        odcinek.draw(ctx);
+      }
+    }
+  }
+
+  /*
+    metoda zwraca wszystkie odcinki wielokąta, jest to liczone na podstawie punktów
+   */
+  getLines() {
+    let lines = [];
+    for(let i = 1; i < this.punkty.length; i++) {
+      lines.push(new Odcinek(this.punkty[i], this.punkty[i -1], 'blue'));
+
+      if (i == (this.punkty.length - 1)) {
+        lines.push(new Odcinek(this.punkty[0], this.punkty[i], 'blue'));
+      }
+    }
+
+    return lines;
+  }
+
+  /*
+  metoda zwraca wszystkie punkty wielokąta
+ */
+  getPoints() {
+    return [
+      ...this.punkty,
+    ];
+  }
+}
+
+/*
 TODO zrobić
  */
 class Polprosta extends IDrawable {
@@ -107,6 +167,5 @@ window.lib = {
   Odcinek,
   Polprosta,
   Prosta,
-  //policzOdcinkiOtoczki,
-  //punktPrzecieciaOdcinkow,
+  Wielokat,
 };

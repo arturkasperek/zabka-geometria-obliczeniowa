@@ -1,0 +1,83 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>The HTML5 Herald</title>
+    <meta name="description" content="Wielokąty proste">
+    <meta name="author" content="SitePoint">
+    <script type="text/javascript" src="../biblioteka.js"></script>
+    <script type="text/javascript" src="../algorytmy/wypukly_czy_nie.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+<div class="app" style="display: flex">
+    <div>
+        <div id="wynik"></div>
+        <canvas id='canvas' width="500" height="500" style="border: 1px solid black;"></canvas>
+    </div>
+    <div>
+        <div id="wynik2"></div>
+        <canvas id='canvas2' width="500" height="500" style="border: 1px solid black;"></canvas>
+    </div>
+</div>
+</body>
+<script>
+  function pierwsza() {
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext("2d");
+
+    // tworzymy wielokąt
+    const wielokat = new Wielokat([
+      new Punkt(100, 100),
+      new Punkt(400, 100),
+      new Punkt(300, 300),
+      new Punkt(320, 350),
+      new Punkt(150, 200),
+    ]);
+
+    wielokat.draw(ctx);
+
+    // wrzucamy wielokąt do algorytmu który sprawdza czy wielokąt jest wypukły czy też wklęsły
+    const czywypukla =  wypuklyCzyNie(wielokat);
+
+    // wyświetlamy wynik
+    if ( czywypukla ) {
+      document.getElementById('wynik').innerText = 'Wypukła';
+    } else {
+      document.getElementById('wynik').innerText = 'Wklęsła';
+    }
+  }
+
+  // to samo co wyżej tylko rysuje inną figurę na innym canvasie
+  function druga() {
+    const canvas = document.getElementById('canvas2');
+    const ctx = canvas.getContext("2d");
+
+    const wielokat = new Wielokat([
+      new Punkt(100, 100),
+      new Punkt(400, 100),
+      new Punkt(350, 300),
+      new Punkt(320, 350),
+      new Punkt(150, 200),
+    ]);
+
+    wielokat.draw(ctx);
+
+    const czywypukla =  wypuklyCzyNie(wielokat);
+
+    if ( czywypukla ) {
+      document.getElementById('wynik2').innerText = 'Wypukła';
+    } else {
+      document.getElementById('wynik2').innerText = 'Wklęsła';
+    }
+  }
+
+  pierwsza();
+  druga();
+
+</script>
+</html>
