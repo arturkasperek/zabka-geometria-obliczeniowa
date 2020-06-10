@@ -8,6 +8,7 @@
     <meta name="author" content="SitePoint">
     <script type="text/javascript" src="../biblioteka/math-lib.js"></script>
     <script type="text/javascript" src="../biblioteka/canvas-manager.js"></script>
+    <script type="text/javascript" src="../biblioteka/helpers.js"></script>
     <script type="text/javascript" src="../algorytmy/punkty_zewnetrzne_wewnetrzne.js"></script>
     <style>
 
@@ -20,35 +21,31 @@
         <div id="wynik"></div>
         <canvas id='canvas' width="500" height="500" style="border: 1px solid black;"></canvas>
         <div id="control"></div>
+        <button style="margin-top: 20" id="losuj">Losuj jeszcze raz</button>
     </div>
 </div>
 </body>
 <script>
   const canvas = document.getElementById('canvas');
-  const ctx = canvas.getContext("2d");
+  const manager = new CanvasManager([], canvas, document.getElementById('control'));
 
-  // tworzymy wielokąt
-  const wielokat = new Wielokat([
-    new Punkt(100, 100),
-    new Punkt(400, 100),
-    new Punkt(300, 300),
-    new Punkt(320, 350),
-    new Punkt(150, 200),
-  ]);
-  const punkty = [
-    new Punkt(120, 150, '#c86401'),
-    new Punkt(180, 200, '#c86401'),
-    new Punkt(20, 120, '#c86401'),
-    new Punkt(300, 200, '#c86401'),
-    new Punkt(350, 40, '#c86401'),
-    new Punkt(420, 400, '#c86401'),
-  ];
+  function losuj() {
+    const wielokat = helpers.generatePolygon(5);
+    const punkty = helpers.generateRandomPoints(50);
 
-  punktyWewnetrzneZewnetrzne(wielokat, punkty);
-  const manager = new CanvasManager([
-    wielokat,
-    ...punkty,
-  ], canvas, document.getElementById('control'));
-  manager.draw();
+    punktyWewnetrzneZewnetrzne(wielokat, punkty);
+    manager.clearElements();
+    manager.addElements([
+      wielokat,
+      ...punkty,
+    ]);
+    manager.draw();
+  }
+
+  document.getElementById('losuj').onclick = function () {
+    losuj()
+  };
+
+  losuj();
 </script>
 </html>
