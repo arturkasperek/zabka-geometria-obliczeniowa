@@ -6,7 +6,8 @@
     <title>The HTML5 Herald</title>
     <meta name="description" content="Wielokąty proste">
     <meta name="author" content="SitePoint">
-    <script type="text/javascript" src="../biblioteka.js"></script>
+    <script type="text/javascript" src="../biblioteka/math-lib.js"></script>
+    <script type="text/javascript" src="../biblioteka/canvas-manager.js"></script>
     <script type="text/javascript" src="../algorytmy/wypukly_czy_nie.js"></script>
     <style>
 
@@ -18,10 +19,12 @@
     <div>
         <div id="wynik"></div>
         <canvas id='canvas' width="500" height="500" style="border: 1px solid black;"></canvas>
+        <div id="control1"></div>
     </div>
     <div>
         <div id="wynik2"></div>
         <canvas id='canvas2' width="500" height="500" style="border: 1px solid black;"></canvas>
+        <div id="control2"></div>
     </div>
 </div>
 </body>
@@ -38,8 +41,9 @@
       new Punkt(320, 350),
       new Punkt(150, 200),
     ]);
+    const manager = new CanvasManager([wielokat], canvas, document.getElementById('control1'));
 
-    wielokat.draw(ctx);
+    manager.draw();
 
     // wrzucamy wielokąt do algorytmu który sprawdza czy wielokąt jest wypukły czy też wklęsły
     const czywypukla =  wypuklyCzyNie(wielokat);
@@ -57,6 +61,7 @@
     const canvas = document.getElementById('canvas2');
     const ctx = canvas.getContext("2d");
 
+    // definicja wielokąta
     const wielokat = new Wielokat([
       new Punkt(100, 100),
       new Punkt(400, 100),
@@ -64,8 +69,9 @@
       new Punkt(320, 350),
       new Punkt(150, 200),
     ]);
+    const manager = new CanvasManager([wielokat], canvas, document.getElementById('control2'));
 
-    wielokat.draw(ctx);
+    manager.draw();
 
     const czywypukla =  wypuklyCzyNie(wielokat);
 

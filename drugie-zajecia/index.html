@@ -6,7 +6,8 @@
     <title>The HTML5 Herald</title>
     <meta name="description" content="Otoczka dla wielokątów">
     <meta name="author" content="SitePoint">
-    <script type="text/javascript" src="../biblioteka.js"></script>
+    <script type="text/javascript" src="../biblioteka/math-lib.js"></script>
+    <script type="text/javascript" src="../biblioteka/canvas-manager.js"></script>
     <style>
 
     </style>
@@ -15,11 +16,11 @@
   <body>
       <div class="app">
         <canvas id='canvas' width="500" height="500" style="border: 1px solid black;"></canvas>
+        <div id="control"></div>
       </div>
   </body>
   <script>
     const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext("2d");
     const punkt = new window.lib.Punkt(10, 200);
     const punkt2 = new window.lib.Punkt(20, 100, 'green');
     const punkt3 = new window.lib.Punkt(50, 120);
@@ -27,13 +28,16 @@
     const odcinek = new window.lib.Odcinek(punkt, punkt2, 'black');
     const polprosta = new window.lib.Polprosta(punkt4, 90, 'red');
     const prosta = new window.lib.Prosta(punkt2, 30, 'blue');
-    punkt.draw(ctx);
-    odcinek.draw(ctx);
-    punkt2.draw(ctx);
-    punkt3.draw(ctx);
-    punkt4.draw(ctx);
-    polprosta.draw(ctx);
-    prosta.draw(ctx);
+    const manager = new CanvasManager([
+      punkt,
+      odcinek,
+      punkt2,
+      punkt3,
+      punkt4,
+      polprosta,
+      prosta
+    ], canvas, document.getElementById('control'));
+    manager.draw();
 
   </script>
 </html>

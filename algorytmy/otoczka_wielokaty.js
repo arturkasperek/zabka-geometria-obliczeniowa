@@ -64,32 +64,33 @@ const policzOdcinkiOtoczki = (punkty, color="blue") => {
 };
 
 
-const otoczkaWielokaty = (punkty1, ctx) => {
+const otoczkaWielokaty = (punkty1, manager) => {
 //tworzę dwa wielokąty przt pomocy otoczki, a następnie dla zbioru
   //punktów obu wielokątów tworzymy jeszcze jedną otoczkę
   const punktyObiekty1 = punkty1.map(punkt => new window.lib.Punkt(punkt[0] * 3, punkt[1] * 3));
 
-  punktyObiekty1.forEach(punkt => punkt.draw(ctx));
   const odcinki1 = policzOdcinkiOtoczki(punktyObiekty1);
-
-  odcinki1.forEach(odcinek => odcinek.draw(ctx));
 
   const punkty2 = [[115, 94],[68, 112], [81, 140],[140, 79]];
 
   const punktyObiekty2 = punkty2.map(punkt => new window.lib.Punkt(punkt[0] * 3, punkt[1] * 3));
 
-  punktyObiekty2.forEach(punkt => punkt.draw(ctx));
-  const odcinki2 = policzOdcinkiOtoczki(punktyObiekty2);
 
-  odcinki2.forEach(odcinek => odcinek.draw(ctx));
+  const odcinki2 = policzOdcinkiOtoczki(punktyObiekty2);
 
   punkty3 = punkty1.concat(punkty2);
   const punktyObiekty3 = punkty3.map(punkt => new window.lib.Punkt(punkt[0] * 3, punkt[1] * 3));
 
-  punktyObiekty3.forEach(punkt => punkt.draw(ctx));
   const odcinki3 = policzOdcinkiOtoczki(punktyObiekty3);
 
-  odcinki3.forEach(odcinek => odcinek.draw(ctx));
+  manager.addElements([
+    ...punktyObiekty1,
+    ...odcinki1,
+    ...punktyObiekty2,
+    ...odcinki2,
+    ...punktyObiekty3,
+    ...odcinki3,
+  ]);
 };
 
 window.otoczkaWielokaty = otoczkaWielokaty;

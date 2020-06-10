@@ -6,7 +6,8 @@
     <title>The HTML5 Herald</title>
     <meta name="description" content="Otoczka">
     <meta name="author" content="SitePoint">
-    <script type="text/javascript" src="../biblioteka.js"></script>
+    <script type="text/javascript" src="../biblioteka/math-lib.js"></script>
+    <script type="text/javascript" src="../biblioteka/canvas-manager.js"></script>
     <script type="text/javascript" src="../algorytmy/otoczka_wielokaty.js"></script>
     <style>
 
@@ -16,13 +17,16 @@
   <body>
       <div class="app">
         <canvas id='canvas' width="500" height="500" style="border: 1px solid black;"></canvas>
+        <div id="control"></div>
       </div>
   </body>
   <script>
     const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext("2d");
     const punkty1 = [[65, 24],[52, 46],[11, 30],[26, 49],
       [56, 11],[40, 9]];
-    otoczkaWielokaty(punkty1, ctx);
+    const manager = new CanvasManager([], canvas, document.getElementById('control'));
+    // wywołanie głównego algorytmu
+    otoczkaWielokaty(punkty1, manager);
+    manager.draw();
   </script>
 </html>

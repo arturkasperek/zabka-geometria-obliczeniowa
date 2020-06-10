@@ -1,0 +1,147 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>The HTML5 Herald</title>
+    <meta name="description" content="Otoczka dla wielokątów">
+    <meta name="author" content="SitePoint">
+    <script type="text/javascript" src="biblioteka/math-lib.js"></script>
+    <script type="text/javascript" src="biblioteka/canvas-manager.js"></script>
+    <script type="text/javascript" src="biblioteka/helpers.js"></script>
+    <style>
+    </style>
+</head>
+
+<body>
+<div class="app">
+    <h1 style="font-size: 60">Prezentacja biblioteki</h1>
+    <h1>Losowanie elementów</h1>
+    <canvas id='canvas1' width="500" height="500" style="border: 1px solid black;"></canvas>
+    <div id="control1"></div>
+    <button style="margin-top: 20" id="losuj1">Losuj od nowa</button>
+
+    <h1>Losowanie dowolnego wielokąta</h1>
+    <canvas id='canvas2' width="500" height="500" style="border: 1px solid black;"></canvas>
+    <div id="control2"></div>
+    <button style="margin-top: 20" id="losuj2">Losuj od nowa</button>
+
+    <h1>Liczenie kąta między prostymi</h1>
+    <canvas id='canvas3' width="500" height="500" style="border: 1px solid black;"></canvas>
+    <div id="control3"></div>
+    <div id="wynik3"></div>
+    <button style="margin-top: 20" id="losuj3">Losuj od nowa</button>
+
+    <h1>Liczenie punktów przecięcia</h1>
+    <canvas id='canvas4' width="500" height="500" style="border: 1px solid black;"></canvas>
+    <div id="control4"></div>
+    <div id="wynik4"></div>
+    <button style="margin-top: 20" id="losuj4">Losuj od nowa</button>
+</div>
+</body>
+<script>
+  function first() {
+    const canvas1 = document.getElementById('canvas1');
+    const manager = new CanvasManager([], canvas1, document.getElementById('control1'));
+
+    const losuj = () => {
+      const points =  helpers.generateRandomPoints();
+      const lines =  helpers.generateRandomLines(20, 'green');
+
+      manager.clearElements();
+      manager.addElements(points);
+      manager.addElements(lines);
+
+      manager.draw();
+    };
+
+    document.getElementById('losuj1').onclick = function () {
+      losuj();
+    };
+
+    losuj();
+  }
+
+  function second() {
+    const canvas1 = document.getElementById('canvas2');
+    const manager = new CanvasManager([], canvas1, document.getElementById('control2'));
+
+    const losuj = () => {
+      const polygon =  helpers.generatePolygon(5);
+      manager.clearElements();
+      manager.addElements([polygon]);
+
+      manager.draw();
+    };
+
+    document.getElementById('losuj2').onclick = function () {
+      losuj();
+    };
+
+    losuj();
+  }
+
+  function third() {
+    const canvas = document.getElementById('canvas3');
+    const manager = new CanvasManager([], canvas, document.getElementById('control3'));
+
+    const losuj = () => {
+      const points =  helpers.generateRandomPoints(3, 'green');
+      const lineFirst = new Odcinek(points[0], points[1]);
+      const lineSecond = new Odcinek(points[1], points[2]);
+      manager.clearElements();
+      manager.addElements([
+        ...points,
+        lineFirst,
+        lineSecond,
+      ]);
+
+      manager.draw();
+
+      const angle = calcAngleBetweenPoints(points[0], points[2], points[1]);
+      document.getElementById('wynik3').innerText = `Kąt między prostymi to: ${angle} stopni`;
+    };
+
+    document.getElementById('losuj3').onclick = function () {
+      losuj();
+    };
+
+    losuj();
+  }
+
+  function fourth() {
+    const canvas = document.getElementById('canvas4');
+    const manager = new CanvasManager([], canvas, document.getElementById('control4'));
+
+    const losuj = () => {
+      const lines =  helpers.generateRandomLines(10);
+      manager.clearElements();
+      manager.addElements([
+        ...lines,
+      ]);
+
+      for(let i = 0; i < lines.length; i ++) {
+        for ( let j = 0; j < lines.length; j++ ) {
+          const result = getIntersectionPoint(lines[i], lines[j]);
+          if ( result.koliduje ) {
+            manager.addElements([result.punkt]);
+          }
+        }
+      }
+
+      manager.draw();
+    };
+
+    document.getElementById('losuj4').onclick = function () {
+      losuj();
+    };
+
+    losuj();
+  }
+
+  first();
+  second();
+  third();
+  fourth();
+
+</script>
+</html>

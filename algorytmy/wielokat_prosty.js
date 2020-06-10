@@ -61,9 +61,5 @@ function prosty(odcinki){
         }
       }
     }
-    if(flaga == false)
-        console.log("Wielokąt nie jest prosty")
-    else
-        console.log("Wielokąt jest prosty")
     return flaga;
 }

@@ -6,7 +6,8 @@
     <title>The HTML5 Herald</title>
     <meta name="description" content="Otoczka">
     <meta name="author" content="SitePoint">
-    <script type="text/javascript" src="../biblioteka.js"></script>
+    <script type="text/javascript" src="../biblioteka/math-lib.js"></script>
+    <script type="text/javascript" src="../biblioteka/canvas-manager.js"></script>
     <script type="text/javascript" src="../algorytmy/otoczka.js"></script>
     <style>
 
@@ -16,19 +17,22 @@
   <body>
       <div class="app">
         <canvas id='canvas' width="500" height="500" style="border: 1px solid black;"></canvas>
+        <div id="control"></div>
       </div>
   </body>
   <script>
     const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext("2d");
     const punkty = [[33, 31],[65, 24],[52, 46],[11, 30],[26, 49],
       [21, 10],[48, 23],[56, 11],[19, 29],[40, 9]];
     // mnoże x5 dla lepszej skali
     const punktyObiekty = punkty.map(punkt => new window.lib.Punkt(punkt[0] * 5, punkt[1] * 5));
 
-    punktyObiekty.forEach(punkt => punkt.draw(ctx));
     const odcinki = policzOdcinkiOtoczki(punktyObiekty);
+    const manager = new CanvasManager([
+      ...punktyObiekty,
+      ...odcinki,
+    ], canvas, document.getElementById('control'));
 
-    odcinki.forEach(odcinek => odcinek.draw(ctx));
+    manager.draw();
   </script>
 </html>

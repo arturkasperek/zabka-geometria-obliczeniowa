@@ -6,9 +6,9 @@
     <title>The HTML5 Herald</title>
     <meta name="description" content="Wielokąty proste">
     <meta name="author" content="SitePoint">
-    <script type="text/javascript" src="../biblioteka.js"></script>
-    <script type="text/javascript" src="../algorytmy/otoczka.js"></script>
-    <script type="text/javascript" src="../algorytmy/punkt_przeciecia.js"></script>
+    <script type="text/javascript" src="../biblioteka/math-lib.js"></script>
+    <script type="text/javascript" src="../biblioteka/canvas-manager.js"></script>
+    <script type="text/javascript" src="../biblioteka/helpers.js"></script>
     <script type="text/javascript" src="../algorytmy/wielokat_prosty.js"></script>
     <style>
 
@@ -19,50 +19,21 @@
       <div class="app">
         <div id="wynik"></div>
         <canvas id='canvas' width="500" height="500" style="border: 1px solid black;"></canvas>
+        <div id="result"></div>
+        <div id="control"></div>
       </div>
   </body>
   <script>
     const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext("2d");
-
-    //w komentarzach poniżej mamy testowy wielokąt prosty wyznaczony
-    //przy wykorzystaniu otoczki
-
-    //const punkty = [[65, 24],[52, 46],[11, 30],[26, 49],
-      //[56, 11],[40, 9]];
-
-    //const punktyObiekty = punkty.map(punkt => new window.lib.Punkt(punkt[0], punkt[1]));
-
-    //punktyObiekty.forEach(punkt => punkt.draw(ctx));
-    //let odcinki = policzOdcinkiOtoczki(punktyObiekty);
-    let odcinki = [
+    // definicja wielokąta
+    const lines = [
       new Odcinek(new Punkt(100, 100), new Punkt(400, 100), "blue"),
       new Odcinek(new Punkt(100, 100), new Punkt(400, 400), "blue"),
       new Odcinek(new Punkt(100, 400), new Punkt(400, 100), "blue"),
       new Odcinek(new Punkt(100, 400), new Punkt(400, 400), "blue"),
     ];
-    //odcinki.forEach(odcinek => odcinek.draw(ctx));
-    if(!prosty(odcinki)){
-        //let odcinki = policzOdcinkiOtoczki(punktyObiekty, "red");
-        let odcinki = [
-          new Odcinek(new Punkt(100, 100), new Punkt(400, 100), "red"),
-          new Odcinek(new Punkt(100, 100), new Punkt(400, 400), "red"),
-          new Odcinek(new Punkt(100, 400), new Punkt(400, 100), "red"),
-          new Odcinek(new Punkt(100, 400), new Punkt(400, 400), "red"),
-        ];
-        console.log('Nie prosty');
-        //jeśli wielokąt nie jest prosty będzie narysowany na czerwono
-        odcinki.forEach(odcinek => odcinek.draw(ctx));
-
-        document.getElementById('wynik').innerText = 'Nie prosty';
-    }
-    else{
-        odcinki.forEach(odcinek => odcinek.draw(ctx));
-        console.log('Prosty');
-        // jeśli jest prosty to zostanie narysowany na niebiesko
-
-        document.getElementById('wynik').innerText = 'Prosty';
-    }
-
+    const manager = new CanvasManager(lines, canvas, document.getElementById('control'));
+    manager.draw();
+    document.getElementById('result').innerText = prosty(lines) ? 'Prosty' : 'Nie prosty';
   </script>
 </html>

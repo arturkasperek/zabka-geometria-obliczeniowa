@@ -6,7 +6,8 @@
     <title>The HTML5 Herald</title>
     <meta name="description" content="Wielokąty proste">
     <meta name="author" content="SitePoint">
-    <script type="text/javascript" src="../biblioteka.js"></script>
+    <script type="text/javascript" src="../biblioteka/math-lib.js"></script>
+    <script type="text/javascript" src="../biblioteka/canvas-manager.js"></script>
     <script type="text/javascript" src="../algorytmy/punkty_zewnetrzne_wewnetrzne.js"></script>
     <style>
 
@@ -18,6 +19,7 @@
     <div>
         <div id="wynik"></div>
         <canvas id='canvas' width="500" height="500" style="border: 1px solid black;"></canvas>
+        <div id="control"></div>
     </div>
 </div>
 </body>
@@ -43,8 +45,10 @@
   ];
 
   punktyWewnetrzneZewnetrzne(wielokat, punkty);
-
-  wielokat.draw(ctx);
-  punkty.forEach(punkt => punkt.draw(ctx));
+  const manager = new CanvasManager([
+    wielokat,
+    ...punkty,
+  ], canvas, document.getElementById('control'));
+  manager.draw();
 </script>
 </html>

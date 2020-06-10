@@ -6,7 +6,8 @@
     <title>The HTML5 Herald</title>
     <meta name="description" content="Punkty przecięcia">
     <meta name="author" content="SitePoint">
-    <script type="text/javascript" src="../biblioteka.js"></script>
+    <script type="text/javascript" src="../biblioteka/math-lib.js"></script>
+    <script type="text/javascript" src="../biblioteka/canvas-manager.js"></script>
     <script type="text/javascript" src="../algorytmy/punkt_przeciecia.js"></script>
     <style>
 
@@ -16,6 +17,7 @@
   <body>
       <div class="app">
         <canvas id='canvas' width="500" height="500" style="border: 1px solid black;"></canvas>
+        <div id="control"></div>
       </div>
   </body>
   <script>
@@ -32,6 +34,8 @@
       i.draw(ctx);
     });
 
+    const manager = new CanvasManager(odcinki, canvas, document.getElementById('control'));
+
     for ( let i = 0; i < odcinki.length; i++ ) {
       for ( let j = 0; j < odcinki.length; j++ ) {
         if ( i == j ) {
@@ -47,9 +51,11 @@
         );
 
         if ( wynik.koliduje ) {
-          wynik.punkt.draw(ctx);
+          manager.addElements([wynik.punkt]);
         }
       }
     }
+
+    manager.draw();
   </script>
 </html>

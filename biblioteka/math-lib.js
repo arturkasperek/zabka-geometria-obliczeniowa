@@ -1,5 +1,12 @@
+const DefaultTransformation = {
+  translation: {
+    x: 0,
+    y: 0,
+  }
+};
+
 class IDrawable {
-  draw() {}
+  draw(ctx, translation) {}
 }
 
 /*
@@ -11,17 +18,15 @@ class Punkt extends IDrawable {
     this.x = x;
     this.y = y;
     this.color = color;
-
-    console.log('Punkt ;)')
   }
 
   /*
     korzysta z metody canvasu arc która rysuje kropkę
   */
-  draw(ctx) {
+  draw(ctx, { translation } = DefaultTransformation) {
     ctx.beginPath();
     ctx.fillStyle = this.color;
-    ctx.arc(this.x, this.y, 3, 0, Math.PI*2, true);
+    ctx.arc(this.x + translation.x, this.y + translation.y, 3, 0, Math.PI*2, true);
     ctx.closePath();
     ctx.fill();
   }
@@ -36,18 +41,16 @@ class Odcinek extends IDrawable{
     this.p1 = p1;
     this.p2 = p2;
     this.color = color;
-
-    console.log('Odcinek')
   }
 
   /*
     korzysta z metody canvasu lineTo która rysuje kreskę
    */
-  draw(ctx) {
+  draw(ctx, { translation } = DefaultTransformation) {
     ctx.beginPath();
     ctx.strokeStyle = this.color;
-    ctx.moveTo(this.p1.x, this.p1.y);
-    ctx.lineTo(this.p2.x, this.p2.y);
+    ctx.moveTo(this.p1.x + translation.x, this.p1.y + translation.y);
+    ctx.lineTo(this.p2.x + translation.x, this.p2.y + translation.y);
     ctx.closePath();
     ctx.stroke();
   }
@@ -65,24 +68,24 @@ class Wielokat extends IDrawable{
   /*
     wywołuje  metody draw odcinka oraz punktu
    */
-  draw(ctx) {
+  draw(ctx, transformation = DefaultTransformation) {
     for(let i = 0; i < this.punkty.length; i++) {
       const punkt = this.punkty[i];
 
-      punkt.draw(ctx);
+      punkt.draw(ctx, transformation);
 
       // rysuje odcinek między dwoma punktami
       if ( i > 0 ) {
         const odcinek = new Odcinek(this.punkty[i], this.punkty[i -1], 'blue');
 
-        odcinek.draw(ctx);
+        odcinek.draw(ctx, transformation);
       }
 
       // rysuje kończący odcinek
       if (i == (this.punkty.length - 1)) {
         const odcinek = new Odcinek(this.punkty[0], this.punkty[i], 'blue');
 
-        odcinek.draw(ctx);
+        odcinek.draw(ctx, transformation);
       }
     }
   }
@@ -122,15 +125,13 @@ class Polprosta extends IDrawable {
     this.p1 = p1;
     this.kat = kat; //kąt podany w stopniach
     this.color = color;
-
-    console.log('Półprosta')
   }
-    draw(ctx) {
+    draw(ctx, { translation } = DefaultTransformation) {
       ctx.beginPath();
       let r =  2000; //długość prostej, musi być większa niż wielkość canvasu
       ctx.strokeStyle = this.color;
-      ctx.moveTo(this.p1.x, this.p1.y);
-      ctx.lineTo(this.p1.x + r * Math.cos(Math.PI * this.kat / 180), this.p1.y + r * Math.sin(Math.PI * this.kat / 180));
+      ctx.moveTo(this.p1.x + translation.x, this.p1.y + translation.y);
+      ctx.lineTo(this.p1.x + translation.x + r * Math.cos(Math.PI * this.kat / 180), this.p1.y + translation.y + r * Math.sin(Math.PI * this.kat / 180));
       ctx.closePath();
       ctx.stroke();
     }
@@ -143,17 +144,15 @@ class Prosta extends IDrawable {
     this.p1 = p1;
     this.kat = kat; //kąt podany w stopniach
     this.color = color;
-
-    console.log('Prosta')
   }
-    draw(ctx) {
+    draw(ctx, { translation } = DefaultTransformation) {
       ctx.beginPath();
       let r = 3000; //długość prostej
       ctx.strokeStyle = this.color;
-      ctx.moveTo(this.p1.x, this.p1.y);
-      ctx.lineTo(this.p1.x + r * Math.cos(Math.PI * this.kat / 180), this.p1.y + r * Math.sin(Math.PI * this.kat / 180));
-      ctx.moveTo(this.p1.x, this.p1.y);
-      ctx.lineTo(this.p1.x + r * Math.cos(Math.PI * (this.kat + 180) / 180), this.p1.y + r * Math.sin(Math.PI * (this.kat + 180) / 180));
+      ctx.moveTo(this.p1.x + translation.x, this.p1.y + translation.y);
+      ctx.lineTo(this.p1.x + translation.x + r * Math.cos(Math.PI * this.kat / 180), this.p1.y + translation.y + r * Math.sin(Math.PI * this.kat / 180));
+      ctx.moveTo(this.p1.x + translation.x, this.p1.y + + translation.y);
+      ctx.lineTo(this.p1.x + + translation.x + r * Math.cos(Math.PI * (this.kat + 180) / 180), this.p1.y + + translation.y + r * Math.sin(Math.PI * (this.kat + 180) / 180));
       ctx.closePath();
       ctx.stroke();
     }
