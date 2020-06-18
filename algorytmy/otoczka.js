@@ -1,3 +1,4 @@
+// Autorzy: Artur Kasperek, Szymon Kędziora, Mateusz Lemiszka
 function policzOdcinkiOtoczki(punkty, color="blue") {
   // sortowanie
   const posortowane = punkty.sort((a, b) => a.x - b.x);

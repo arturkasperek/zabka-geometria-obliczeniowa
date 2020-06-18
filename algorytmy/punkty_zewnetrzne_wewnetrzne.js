@@ -1,3 +1,4 @@
+// Autorzy: Artur Kasperek, Szymon Kędziora, Mateusz Lemiszka
 
 const INF = 999999999;
 

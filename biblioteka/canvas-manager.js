@@ -1,3 +1,5 @@
+// Autorzy: Artur Kasperek, Szymon Kędziora, Mateusz Lemiszka
+
 class CanvasManager {
   constructor(elements, canvasElement, controlContainer) {
     // inicjalizacja klasy

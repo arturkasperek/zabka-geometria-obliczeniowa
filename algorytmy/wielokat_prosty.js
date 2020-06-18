@@ -1,3 +1,5 @@
+// Autorzy: Artur Kasperek, Szymon Kędziora, Mateusz Lemiszka
+
 function czyPrzecina(odcinekA, odcinekB)
 {
  //do sprawdzenia czy dany wielokąt jest prosty wykorzystaliśmy

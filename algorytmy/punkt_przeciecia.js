@@ -1,3 +1,5 @@
+// Autorzy: Artur Kasperek, Szymon Kędziora, Mateusz Lemiszka
+
 function punktPrzecieciaOdcinkow(odcinekA, odcinekB)
 {
   // mapujemy wartości z obiekty odcinka do pojedyńczych zmiennych by obliczenia wyglądały

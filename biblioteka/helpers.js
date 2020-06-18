@@ -1,3 +1,5 @@
+// Autorzy: Artur Kasperek, Szymon Kędziora, Mateusz Lemiszka
+
 // generowanie liczby z przedziału
 const random = (min, max) => {
   return parseInt(Math.random() * (max - min) ) + min;

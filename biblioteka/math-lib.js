@@ -1,3 +1,5 @@
+// Autorzy: Artur Kasperek, Szymon Kędziora, Mateusz Lemiszka
+
 const DefaultTransformation = {
   translation: {
     x: 0,
